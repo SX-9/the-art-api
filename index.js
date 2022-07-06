@@ -5,7 +5,13 @@ const app = express();
 
 app.use(express.json());
 
-app.get
+app.get("/dash", (req, res) => {
+    res.sendFile(__dirname + "/dash.html");
+});
+
+app.get("/", (req, res) => {
+    res.sendFile(__dirname + "/docs.html");
+});
 
 app.get("/api", (req, res) => {
     let id = req.params.id;
@@ -19,7 +25,7 @@ app.get("/api", (req, res) => {
     }
 });
 
-app.post("/api/", (req, res) => {
+app.post("/api", (req, res) => {
     let body = req.body;
     let id = uuid.v4();
     if (!body.img || !body.pass) {

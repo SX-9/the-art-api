@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: sans-serif;
+            text-align: center;
+            color: #ffffff;
+            background-color: #000000;
+        }
+    </style>
+    <title>The Art API - Dashboard</title>
+</head>
+<body>
+    <h1>The Art API</h1>
+    <p>Dashboard</p>
+    <br>
+    <label>(Optional) Author:</label>
+    <input type="text" id="author" placeholder="YOUR_NAME">
+    <br>
+    <label>(Required) Image:</label>
+    <input type="text" id="image" placeholder="IMAGE_URL">
+    <br>
+    <label>(Required) Password:</label>
+    <input type="password" id="password" placeholder="PASSWORD">
+    <br>
+    <button onclick="submit()">Submit</button>
+    <br>
+    <p>Made by <a href="https://sx9.is-a.dev">sx9.is-a.dev</a></p>
+    <script>
+        const author = document.getElementById("author").value;
+        const img = document.getElementById("image").value;
+        const password = document.getElementById("password").value;
+
+        const submit = () => {
+            fetch("/api", { 
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "img": img,
+                    "author": author,
+                    "pass": password
+                }
+            )}).then(res => res.json()).then(res => {
+                alert(JSON.stringify(res));
+            }).catch(err => {
+                alert(err.message);
+                console.error(err);
+            });
+        }
+    </script>
+</body>
+</html>
