@@ -1,12 +1,24 @@
 const fs = require('fs');
 const express = require('express');
 const uuid = require('uuid');
+const limiter = require('express-rate-limit');
 const app = express();
 
 app.use(express.json());
+app.use("/api", limiter({
+    windowMs: 15 * 60 * 1000, 
+    max: 10,
+    message: {
+        "mess": "Err: Too Many Requests"
+    }
+}));
 
-app.get("/dash", (req, res) => {
-    res.sendFile(__dirname + "/dash.html");
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, DELETE');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    console.log(req.method + req.url);
+    next();
 });
 
 app.get("/", (req, res) => {
@@ -18,11 +30,7 @@ app.get("/api", (req, res) => {
     let files = fs.readdirSync('./artwork');
     let randomFile = files[Math.floor(Math.random() * files.length)];
     let data = JSON.parse(fs.readFileSync('./artwork/' + randomFile));
-    if (!randomFile) {
-        res.status(404).json({"mess":"Err: No Files Found"});
-    } else {
-        res.json({ "img": data.img, "author": data.author });
-    }
+    res.json({ "img": data.img, "author": data.author });
 });
 
 app.post("/api", (req, res) => {
@@ -48,7 +56,7 @@ app.delete("/api/:id", (req, res) => {
     let id = req.params.id;
     let file = require(`./artwork/${id}.json`);
     if (file.pass !== req.body.pass) {
-        res.status(401).json({ "mess": "Incorrect password" });
+        res.status(401).json({ "mess": "Err: Incorrect Password" });
     } else {
         fs.unlinkSync(`./artwork/${id}.json`);
         res.json({ "mess": "Deleted" });

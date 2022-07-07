@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            padding: 1em;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            line-height: 1.42857143;
+            color: #ffffff;
+            background-color: #000000;
+        }
+        code {
+            font-family: 'Roboto Mono', monospace;
+            padding: 2em;
+        }
+    </style>
     <title>TheArtAPI - Docs</title>
 </head>
 <body>
@@ -12,26 +26,26 @@
     <h2>Geting an art from API</h2>
     <p>
         To Get a random art from the API, you need to send a GET request to the following URL:<br>
-        <code>https://<span class="domain"></span>/api/art</code>
+        <code>https://<span class="domain"></span>/api</code>
     </p>
     <hr size="1">
     <h2>Uploading an art to the API</h2>
     <p>
         To upload an art to the API, you need to send a POST request to the following URL:<br>
         <code>https://<span class="domain"></span>/api</code>
-        If you get a 400 Bad Request look at the response body for more information,<br><br>
+        <br>If you get a 400 Bad Request look at the response body for more information,<br><br>
         After you have uploaded an art make sure you store the ID and Pass for later.
     </p>
     <hr size="1">
     <h2>Deleting your art</h2>
     <p>
         To delete your art, you need to send a DELETE request to the following URL:<br>
-        <code>https://<span class="domain"></span>/api/YOUR_ART_ID<span id="id"></span></code>
-        Replace YOUR_ART_ID with the ID you got from the API after uploading,
-        If you get a 401 Unauthorized response then make sure to send this in the request body:
+        <code>https://<span class="domain"></span>/api/YOUR_ART_ID</code>
+        <br>Replace YOUR_ART_ID with the ID you got from the API after uploading,
+        If you get a 401 Unauthorized response then make sure to send this in the request body:<br>
         <code>{"pass": "YOUR_PASSWORD"}</code>
-        Replace YOUR_PASSWORD with the Pass you picked while uploading,
-        If you cant delete it then send us an email at <code>art@mail.sx9.is-a.dev</code>
+        <br>Replace YOUR_PASSWORD with the Pass you picked while uploading,
+        If you cant delete it then send us an email at art@mail.sx9.is-a.dev
     </p>
     <hr size="1">
     <p>Made by <a href="https://sx9.is-a.dev">sx9.is-a.dev</a></p>
