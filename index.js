@@ -2,6 +2,7 @@ const fs = require('fs');
 const express = require('express');
 const uuid = require('uuid');
 const limiter = require('express-rate-limit');
+const mkdirp = require('mkdirp');
 const app = express();
 
 app.use(express.json());
@@ -51,8 +52,15 @@ app.post("/api", (req, res) => {
             "pass": body.pass,
             "author": body.author
         });
-        fs.writeFile(__dirname + `/artwork/${id}.json`, data);
-        res.json({ "mess": "Sucsess", "id": id });
+        mkdirp('./artwork', (err) => {
+            if (err) {
+                res.status(500).json({ "mess": "Err: " + err });
+            } else {
+                fs.writeFileSync('./artwork/' + id + '.json', data);
+                res.json({ "mess": "Sucsess", "id": id });
+                console.log("New Art: " + id);
+            }
+        });
     }
 });
 
@@ -64,6 +72,7 @@ app.delete("/api/:id", (req, res) => {
     } else {
         fs.unlinkSync(__dirname + `/artwork/${id}.json`);
         res.json({ "mess": "Deleted" });
+        console.log("Deleted Art: " + id);
     }
 });
 
