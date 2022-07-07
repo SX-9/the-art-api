@@ -51,7 +51,7 @@ app.post("/api", (req, res) => {
             "pass": body.pass,
             "author": body.author
         });
-        fs.writeFileSync(__dirname + `/artwork/${id}.json`, data);
+        fs.writeFile(__dirname + `/artwork/${id}.json`, data);
         res.json({ "mess": "Sucsess", "id": id });
     }
 });
