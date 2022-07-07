@@ -52,15 +52,9 @@ app.post("/api", (req, res) => {
             "pass": body.pass,
             "author": body.author
         });
-        mkdirp('./artwork', (err) => {
-            if (err) {
-                res.status(500).json({ "mess": "Err: " + err });
-            } else {
-                fs.writeFileSync('./artwork/' + id + '.json', data);
-                res.json({ "mess": "Sucsess", "id": id });
-                console.log("New Art: " + id);
-            }
-        });
+        fs.writeFileSync('./artwork/' + id + '.json', data);
+        res.json({ "mess": "Sucsess", "id": id });
+        console.log("New Art: " + id);
     }
 });
 
