@@ -63,6 +63,6 @@ app.delete("/api/:id", (req, res) => {
     }
 });
 
-app.listen(5080, () => {
+app.listen(process.env.PORT || 5080, () => {
     console.log("Server started on port 5080");
 });
