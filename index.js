@@ -46,8 +46,12 @@ app.post("/api", (req, res) => {
             }
         });
     } else {
-        let data = JSON.stringify(body);
-        fs.writeFileSync(`./artwork/${id}.json`, data);
+        let data = JSON.stringify({
+            "img": body.img,
+            "pass": body.pass,
+            "author": body.author
+        });
+        fs.writeFileSync(__dirname + `/artwork/${id}.json`, data);
         res.json({ "mess": "Sucsess", "id": id });
     }
 });
@@ -58,7 +62,7 @@ app.delete("/api/:id", (req, res) => {
     if (file.pass !== req.body.pass) {
         res.status(401).json({ "mess": "Err: Incorrect Password" });
     } else {
-        fs.unlinkSync(`./artwork/${id}.json`);
+        fs.unlinkSync(__dirname + `/artwork/${id}.json`);
         res.json({ "mess": "Deleted" });
     }
 });
