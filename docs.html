@@ -32,7 +32,15 @@
     <h2>Uploading an art to the API</h2>
     <p>
         To upload an art to the API, you need to send a POST request to the following URL:<br>
-        <code>https://<span class="domain"></span>/api</code>
+        <code>https://<span class="domain"></span>/api</code><br>
+        This will be the request body:<br>
+        <code>
+            {
+                "img": "IMG_URL",
+                "pass": "PASSWORD",
+                "author": "YOUR_NAME"
+            }
+        </code>
         <br>If you get a 400 Bad Request look at the response body for more information,<br><br>
         After you have uploaded an art make sure you store the ID and Pass for later.
     </p>
@@ -42,9 +50,10 @@
         To delete your art, you need to send a DELETE request to the following URL:<br>
         <code>https://<span class="domain"></span>/api/YOUR_ART_ID</code>
         <br>Replace YOUR_ART_ID with the ID you got from the API after uploading,
-        If you get a 401 Unauthorized response then make sure to send this in the request body:<br>
+        Send this in the request body:<br>
         <code>{"pass": "YOUR_PASSWORD"}</code>
         <br>Replace YOUR_PASSWORD with the Pass you picked while uploading,
+        If you get 401 Unauthorized, you have entered the wrong Pass.
         If you cant delete it then send us an email at art@mail.sx9.is-a.dev
     </p>
     <hr size="1">
